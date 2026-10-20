@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Password Strength Checker — PW Strength Lab</title>
+<meta name="description" content="An educational, in-browser password strength estimator. Live checklist, five-state strength gauge and improvement suggestions. Your password never leaves your device.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B1233'/><path d='M10 15v-3a6 6 0 0 1 12 0v3' fill='none' stroke='%232B44FF' stroke-width='2.4'/><rect x='8' y='15' width='16' height='11' rx='2.5' fill='%232B44FF'/></svg>">
+</head>
+<body id="top">
+
+<a class="skip-link" href="#pw">Skip to the password field</a>
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+      <rect x="1" y="1" width="38" height="38" rx="9" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".35"/>
+      <path d="M14 18v-3.2a6 6 0 0 1 12 0V18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      <rect x="11.5" y="18" width="17" height="12.5" rx="2.6" fill="currentColor"/>
+      <circle cx="20" cy="23" r="1.9" fill="#fff"/>
+      <rect x="19.1" y="23.6" width="1.8" height="4" rx=".9" fill="#fff"/>
+    </svg>
+    <span class="brand-name">PW Strength Lab</span>
+    <span class="brand-meta">EST. 2026</span>
+  </a>
+  <p class="topbar-pill"><span class="dot" aria-hidden="true"></span>100% in-browser · zero network requests</p>
+</header>
+
+<main class="shell">
+
+  <!-- ============ EDITORIAL RAIL ============ -->
+  <aside class="rail">
+    <p class="eyebrow">Educational strength estimator · v1.0</p>
+
+    <h1 class="display">Password <em>Strength</em> Checker</h1>
+
+    <p class="lede">Create a stronger password. Protect your digital world.</p>
+
+    <dl class="specs">
+      <div class="spec"><dt>Criteria</dt><dd>08</dd></div>
+      <div class="spec"><dt>States</dt><dd>05</dd></div>
+      <div class="spec"><dt>Uploads</dt><dd>00</dd></div>
+    </dl>
+
+    <figure class="rail-figure">
+      <img src="https://images.pexels.com/photos/39605855/pexels-photo-39605855.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+           alt="A vintage industrial control panel covered in analogue gauges and dials." loading="lazy" decoding="async">
+      <figcaption><span class="cap-num">FIG. 01</span> Measurement, not guesswork — the gauge re-reads eight checks on every keystroke.</figcaption>
+    </figure>
+
+    <p class="privacy">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <rect x="5.5" y="11" width="13" height="9" rx="2.2" fill="currentColor"/>
+      </svg>
+      Your password stays in your browser. It is never uploaded or stored by this tool.
+    </p>
+  </aside>
+
+  <!-- ============ THE INSTRUMENT ============ -->
+  <section class="instrument" aria-labelledby="inst-title">
+    <div class="instrument-head">
+      <h2 id="inst-title">Live analysis</h2>
+      <p class="instrument-code">MODE: HEURISTIC / CH.01</p>
+    </div>
+
+    <form class="pw-form" autocomplete="off" novalidate>
+      <label class="field-label" for="pw">Password</label>
+
+      <div class="field">
+        <input id="pw" name="password" type="password" spellcheck="false" autocapitalize="off"
+               autocomplete="new-password" placeholder="Enter your password"
+               aria-describedby="field-help">
+        <div class="field-actions">
+          <button type="button" class="icon-btn" id="togglePw" aria-pressed="false" aria-label="Show password" title="Show / hide password">
+            <svg class="ico ico-eye" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="1.7"/>
+              <circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            </svg>
+            <svg class="ico ico-eye-off" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+              <path d="M2.5 12S6 5.8 12 5.8c1.7 0 3.2.5 4.4 1.2M21.5 12S18 18.2 12 18.2c-1.7 0-3.2-.5-4.4-1.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M4 4l16 16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button type="button" class="icon-btn" id="clearPw" aria-label="Clear the password field" title="Clear">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button type="button" class="icon-btn" id="copyPw" aria-label="Copy the password to the clipboard" title="Copy">
+            <svg class="ico ico-copy" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="8.5" y="8.5" width="11" height="11" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M15.5 5.5h-9a2 2 0 0 0-2 2v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <svg class="ico ico-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+              <path d="M5 12.8l4.4 4.4L19 7.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="field-foot">
+        <p class="counter" id="field-help">Length <span class="num" id="lenValue">0</span> <span class="counter-unit">characters</span></p>
+        <p class="action-msg" id="actionMsg" role="status"></p>
+      </div>
+    </form>
+
+    <!-- ---- the gauge ---- -->
+    <div class="gauge-block">
+      <div class="gauge-head">
+        <p class="field-label">Strength meter</p>
+        <p class="gauge-label" id="strengthLabel"><span class="gauge-code" id="stateCode">S0</span> <span id="strengthText">Empty</span></p>
+      </div>
+
+      <div class="gauge" id="gauge" role="progressbar" aria-label="Estimated password strength"
+           aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-valuetext="Empty — nothing typed yet">
+        <span class="seg" style="--i:0"></span>
+        <span class="seg" style="--i:1"></span>
+        <span class="seg" style="--i:2"></span>
+        <span class="seg" style="--i:3"></span>
+        <span class="seg" style="--i:4"></span>
+        <span class="needle" id="needle" aria-hidden="true"></span>
+      </div>
+
+      <div class="gauge-scale" aria-hidden="true">
+        <span>0.0</span><span>0.2</span><span>0.4</span><span>0.6</span><span>0.8</span><span>1.0</span>
+      </div>
+
+      <p class="sr-only" aria-live="polite" id="liveRegion"></p>
+    </div>
+
+    <!-- ---- readouts ---- -->
+    <ul class="metrics">
+      <li class="metric"><span class="metric-val num" id="mLen">0</span><span class="metric-key">Length</span></li>
+      <li class="metric"><span class="metric-val num" id="mUnique">0</span><span class="metric-key">Distinct</span></li>
+      <li class="metric"><span class="metric-val num" id="mClasses">0/4</span><span class="metric-key">Char classes</span></li>
+      <li class="metric"><span class="metric-val num" id="mEntropy">0</span><span class="metric-key">Rough bits*</span></li>
+    </ul>
+
+    <!-- ---- checklist + advice ---- -->
+    <div class="panels">
+      <section class="panel" aria-labelledby="checklist-title">
+        <h3 class="panel-title" id="checklist-title">Live checklist</h3>
+        <ul class="checklist" id="checklist">
+          <li class="check-row" data-check="len8"><span class="mark" aria-hidden="true"></span><span class="check-text">At least 8 characters</span><span class="check-state">Not met</span></li>
+          <li class="check-row" data-check="len12"><span class="mark" aria-hidden="true"></span><span class="check-text">At least 12 characters</span><span class="check-state">Not met</span></li>
+          <li class="check-row" data-check="upper"><span class="mark" aria-hidden="true"></span><span class="check-text">Contains an uppercase letter</span><span class="check-state">Not met</span></li>
+          <li class="check-row" data-check="lower"><span class="mark" aria-hidden="true"></span><span class="check-text">Contains a lowercase letter</span><span class="check-state">Not met</span></li>
+          <li class="check-row" data-check="digit"><span class="mark" aria-hidden="true"></span><span class="check-text">Contains a number</span><span class="check-state">Not met</span></li>
+          <li class="check-row" data-check="special"><span class="mark" aria-hidden="true"></span><span class="check-text">Contains a special character</span><span class="check-state">Not met</span></li>
+          <li class="check-row" data-check="uncommon"><span class="mark" aria-hidden="true"></span><span class="check-text">Not a common or obvious password</span><span class="check-state">Not met</span></li>
+          <li class="check-row" data-check="nopattern"><span class="mark" aria-hidden="true"></span><span class="check-text">No repeats or predictable sequences</span><span class="check-state">Not met</span></li>
+        </ul>
+      </section>
+
+      <section class="panel panel-advice" aria-labelledby="advice-title">
+        <h3 class="panel-title" id="advice-title">Suggestions</h3>
+        <ul class="advice" id="suggestions"></ul>
+        <p class="panel-note">*Rough bits is a simple character-pool estimate, not a security guarantee. This tool is an educational heuristic — it has not checked your password against any leaked-password database.</p>
+      </section>
+    </div>
+  </section>
+</main>
+
+<!-- ============ VERIFICATION VECTORS ============ -->
+<section class="vectors" aria-labelledby="vectors-title">
+  <div class="vectors-band" aria-hidden="true">
+    <img src="https://images.pexels.com/photos/36740854/pexels-photo-36740854.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+         alt="" loading="lazy" decoding="async">
+  </div>
+  <div class="vectors-inner">
+    <header class="vectors-head">
+      <p class="eyebrow light">Section 05 — Test plan</p>
+      <h2 class="vectors-title" id="vectors-title">Verification vectors</h2>
+      <p class="vectors-lede">Every case from the test plan, loadable in one click. Selecting a row types the sample into the field and re-runs the analysis — nothing is stored.</p>
+    </header>
+
+    <div class="table-wrap">
+      <table class="vectors-table">
+        <caption class="sr-only">Sample passwords with their expected strength classification</caption>
+        <thead>
+          <tr>
+            <th scope="col">Case</th>
+            <th scope="col">Sample input</th>
+            <th scope="col">Expected state</th>
+            <th scope="col"><span class="sr-only">Run</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Empty field</th><td class="mono">(empty)</td><td><span class="pill pill-empty">Empty</span></td><td><button type="button" class="run-btn" data-pw="">Run</button></td></tr>
+          <tr><th scope="row">Very short</th><td class="mono">abc</td><td><span class="pill pill-1">Very weak</span></td><td><button type="button" class="run-btn" data-pw="abc">Run</button></td></tr>
+          <tr><th scope="row">Lowercase dictionary word</th><td class="mono">sunflower</td><td><span class="pill pill-1">Very weak</span></td><td><button type="button" class="run-btn" data-pw="sunflower">Run</button></td></tr>
+          <tr><th scope="row">Lowercase only, 12 chars</th><td class="mono">copperkettle</td><td><span class="pill pill-2">Weak</span></td><td><button type="button" class="run-btn" data-pw="copperkettle">Run</button></td></tr>
+          <tr><th scope="row">Mixed but short</th><td class="mono">Ab1!xQ</td><td><span class="pill pill-1">Very weak</span></td><td><button type="button" class="run-btn" data-pw="Ab1!xQ">Run</button></td></tr>
+          <tr><th scope="row">Repeated characters</th><td class="mono">aaaaaaaa</td><td><span class="pill pill-1">Very weak</span></td><td><button type="button" class="run-btn" data-pw="aaaaaaaa">Run</button></td></tr>
+          <tr><th scope="row">Predictable sequence</th><td class="mono">12345678</td><td><span class="pill pill-1">Very weak</span></td><td><button type="button" class="run-btn" data-pw="12345678">Run</button></td></tr>
+          <tr><th scope="row">Common password</th><td class="mono">Password1</td><td><span class="pill pill-1">Very weak</span></td><td><button type="button" class="run-btn" data-pw="Password1">Run</button></td></tr>
+          <tr><th scope="row">Long passphrase</th><td class="mono">correct horse battery staple</td><td><span class="pill pill-4">Strong</span></td><td><button type="button" class="run-btn" data-pw="correct horse battery staple">Run</button></td></tr>
+          <tr><th scope="row">Long &amp; varied</th><td class="mono">My-Cat-Loves-7-Boxes!</td><td><span class="pill pill-5">Very strong</span></td><td><button type="button" class="run-btn" data-pw="My-Cat-Loves-7-Boxes!">Run</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="vectors-note">Expected states are the documented behaviour of this heuristic build (see <span class="mono">report.md</span>). A different engine may reasonably disagree — that is the nature of estimation.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p class="footer-mark">PW STRENGTH LAB</p>
+  <p class="footer-text">This is an educational strength estimator, not a guarantee against attacks. It never checks your password against leaked-password databases, never stores it, and never puts it in a URL. Use a password manager and unique passphrases for real accounts.</p>
+  <p class="footer-text mono">HTML · CSS · Vanilla JS — no frameworks, no trackers.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
